@@ -2,14 +2,23 @@
 import axios from 'axios';
 
 export default {
+  data() {
+    return {
+      todoList: [],
+      addTodo: "",
+    }
+  },
 
   methods: {
     getData() {
       let api = "http://localhost"
-      axios.get(api)
+      const params = {
+        prova: "ciaoprova"
+      }
+      axios.get(api, { params })
         .then(res => {
-          const data = res.data;
-          console.log(data);
+          this.todoList = res.data;
+
         })
 
     }
@@ -22,7 +31,15 @@ export default {
 </script>
 
 <template>
-  <p>ciao</p>
+  <form @submit="submit">
+    <input type="text" v-model="addTodo">
+    <input type="submit" value="ADD">
+  </form>
+  <ul>
+    <li v-for="(item, index) in todoList" :key="index">
+      {{ item.text }}
+    </li>
+  </ul>
 </template>
 
 <style lang="scss" scoped>
