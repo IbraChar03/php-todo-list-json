@@ -1,7 +1,21 @@
 <script>
-export default {
-  data() {
+import axios from 'axios';
 
+export default {
+
+  methods: {
+    getData() {
+      let api = "http://localhost"
+      axios.get(api)
+        .then(res => {
+          const data = res.data;
+          console.log(data);
+        })
+
+    }
+  },
+  mounted() {
+    this.getData()
   }
 }
 

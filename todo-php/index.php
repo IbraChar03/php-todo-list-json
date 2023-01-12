@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <?php
-    echo "prova"
-        ?>
-</body>
-
-</html>
+<?php
+header("Access-Control-Allow-Origin: http://localhost:5173");
+header("Access-Control-Allow-Headers: X-Requested-With");
+header("Content-Type: application/json");
+$todoObj = [
+    [
+        "text" => "todo1",
+        "complete" => false
+    ],
+    [
+        "text" => "todo2",
+        "complete" => false
+    ],
+    [
+        "text" => "todo3",
+        "complete" => false
+    ],
+];
+echo json_encode($todoObj);
+echo "ciao";
