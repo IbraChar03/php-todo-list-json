@@ -11,13 +11,26 @@ export default {
 
   methods: {
     getData() {
-      let api = "http://localhost"
-      const params = {
-        prova: "ciaoprova"
-      }
-      axios.get(api, { params })
+      let api = "http://localhost/apiTodo.php"
+      axios.get(api)
         .then(res => {
           this.todoList = res.data;
+
+        })
+
+    },
+    formSubmit(e) {
+      e.preventDefault();
+
+      let api = "http://localhost/apiNewTodo.php"
+      const params = {
+        params: {
+          "addTodo": this.addTodo
+        }
+      }
+      axios.get(api, params)
+        .then(() => {
+          this.getData()
 
         })
 
@@ -31,7 +44,7 @@ export default {
 </script>
 
 <template>
-  <form @submit="submit">
+  <form @submit="formSubmit">
     <input type="text" v-model="addTodo">
     <input type="submit" value="ADD">
   </form>
