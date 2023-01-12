@@ -10,6 +10,19 @@ export default {
   },
 
   methods: {
+    checkbox(indice) {
+      var checkBox = document.getElementsByClassName("check")
+      if (checkBox[indice].checked) {
+        this.todoList[indice].complete = true
+        console.log(this.todoList[indice].complete)
+
+      }
+      else {
+        this.todoList[indice].complete = false
+        console.log(this.todoList[indice].complete)
+      }
+
+    },
     getData() {
       let api = "http://localhost/apiTodo.php"
       axios.get(api)
@@ -57,27 +70,21 @@ export default {
           </div>
 
           <ul>
-            <li v-for="(task, index) in todoList" class="task">
+            <li v-for="(task, index) in todoList" :key="index" class="task" :class="{ 'line': task.complete }">
               {{ task.text }}
 
               <font-awesome-icon icon="fa-solid fa-trash-can" class="del" />
-              <input type="checkbox" name="" class="check">
+              <input type="checkbox" name="" class="check" @click="checkbox(index)">
 
             </li>
 
           </ul>
-
 
         </div>
       </div>
     </div>
   </section>
 
-  <!-- <ul>
-    <li v-for="(item, index) in todoList" :key="index">
-      {{ item.text }}
-    </li>
-  </ul> -->
 </template>
 
 <style lang="scss" scoped>
