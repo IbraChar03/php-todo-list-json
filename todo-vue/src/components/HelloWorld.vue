@@ -23,6 +23,10 @@ export default {
       }
 
     },
+    delTask(index) {
+      let list = document.getElementsByClassName("task");
+      list[index].classList.add("none")
+    },
     getData() {
       let api = "http://localhost/apiTodo.php"
       axios.get(api)
@@ -73,7 +77,7 @@ export default {
             <li v-for="(task, index) in todoList" :key="index" class="task" :class="{ 'line': task.complete }">
               {{ task.text }}
 
-              <font-awesome-icon icon="fa-solid fa-trash-can" class="del" />
+              <font-awesome-icon icon="fa-solid fa-trash-can" class="del" @click="delTask(index)" />
               <input type="checkbox" name="" class="check" @click="checkbox(index)">
 
             </li>
@@ -92,6 +96,10 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.none {
+  display: none;
 }
 
 .cont {
