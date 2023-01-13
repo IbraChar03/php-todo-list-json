@@ -94,7 +94,8 @@ export default {
               {{ task.text }}
 
               <font-awesome-icon icon="fa-solid fa-trash-can" class="del" @click="delTask(index)" />
-              <input type="checkbox" name="" class="check" @click="completedTask(index, task.complete, task.text)">
+              <input type="checkbox" name="" class="check" @click="completedTask(index, task.complete, task.text)"
+                :checked="task.complete">
 
             </li>
 
