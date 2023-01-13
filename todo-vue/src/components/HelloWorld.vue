@@ -10,23 +10,7 @@ export default {
   },
 
   methods: {
-    checkbox(indice) {
-      var checkBox = document.getElementsByClassName("check")
-      if (checkBox[indice].checked) {
-        this.todoList[indice].complete = true
-        console.log(this.todoList[indice].complete)
 
-      }
-      else {
-        this.todoList[indice].complete = false
-        console.log(this.todoList[indice].complete)
-      }
-
-    },
-    delTask(index) {
-      let list = document.getElementsByClassName("task");
-      list[index].classList.add("none")
-    },
     getData() {
       let api = "http://localhost/apiTodo.php"
       axios.get(api)
@@ -51,7 +35,39 @@ export default {
 
         })
 
-    }
+    },
+    completedTask(index, taskStatus, text) {
+
+      let api = "http://localhost/apiCompleteTask.php"
+      const params = {
+        params: {
+          "taskStatus": taskStatus,
+          "id": index,
+          "txt": text
+        }
+      }
+      axios.get(api, params)
+        .then(() => {
+          this.getData()
+
+        })
+    },
+    delTask(index) {
+
+      let api = "http://localhost/apiDeleteTask.php"
+      const params = {
+        params: {
+
+          "id": index,
+        }
+      }
+      axios.get(api, params)
+        .then(() => {
+          this.getData()
+
+        })
+    },
+
   },
   mounted() {
     this.getData()
@@ -78,7 +94,7 @@ export default {
               {{ task.text }}
 
               <font-awesome-icon icon="fa-solid fa-trash-can" class="del" @click="delTask(index)" />
-              <input type="checkbox" name="" class="check" @click="checkbox(index)">
+              <input type="radio" name="" class="check" @click="completedTask(index, task.complete, task.text)">
 
             </li>
 
